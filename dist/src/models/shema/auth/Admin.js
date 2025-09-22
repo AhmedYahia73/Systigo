@@ -38,7 +38,6 @@ const mongoose_1 = __importStar(require("mongoose"));
 const adminSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    hashedPassword: { type: String, required: true },
-    imagePath: { type: String },
+    password: { type: String, required: true },
 }, { timestamps: true });
 exports.AdminModel = mongoose_1.default.model("Admin", adminSchema);

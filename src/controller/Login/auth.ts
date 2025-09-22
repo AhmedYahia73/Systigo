@@ -18,7 +18,7 @@ export const login_admin = async (req: Request, res: Response) => {
     throw new UnauthorizedError("Invalid email or password");
   }
 
-  const isPasswordValid = await bcrypt.compare(password, admin.hashedPassword);
+  const isPasswordValid = await bcrypt.compare(password, admin.password);
   if (!isPasswordValid) {
     throw new UnauthorizedError("Invalid email or password");
   }

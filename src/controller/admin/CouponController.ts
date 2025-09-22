@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CouponModel } from "../../models/shema/auth/Coupon";
-import { UnauthorizedError } from "../../Errors";
+import { NotFound, UnauthorizedError } from "../../Errors";
 import { SuccessResponse } from "../../utils/response";
 
 
@@ -20,8 +20,8 @@ export const create = async (req: Request, res: Response) => {
         status,
     } = req.body;
   
-    const coupon = await CouponModel.findById({code});
-    if (coupon) {
+    const coupons = await CouponModel.findById({code});
+    if (coupons) {
       throw new UnauthorizedError('Code must be unique');
     }
 
@@ -67,7 +67,7 @@ export const modify = async (req: Request, res: Response) => {
 
 export const delete_item = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const coupon = await CouponModel.findByIdAndRemove(id);
+  const coupon = await CouponModel.findByIdAndDelete(id);
     if (!coupon) {
       throw new NotFound('coupon not found');
     }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PackageModel } from "../../models/shema/auth/Package";
-import { UnauthorizedError } from "../../Errors";
+import { NotFound, UnauthorizedError } from "../../Errors";
 import { SuccessResponse } from "../../utils/response";
 
 
@@ -65,8 +65,8 @@ export const modify = async (req: Request, res: Response) => {
 
 export const delete_item = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const package = await PackageModel.findByIdAndRemove(id);
-    if (!package) {
+  const packages = await PackageModel.findByIdAndDelete(id);
+    if (!packages) {
       throw new NotFound('package not found');
     }
   

@@ -8,7 +8,7 @@ import mongoose from "mongoose";
     discount: { type: Number, },
     from: { type: Date, required: true },
     to: { type: Date, required: true },
-    status: { type: Boolean},
+    status: { type: Boolean, required: true },
   },
   { timestamps: true, }
 );

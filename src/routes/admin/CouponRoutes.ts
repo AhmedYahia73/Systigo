@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { view, create, modify, delete_item } from '../../controller/admin/CouponController';
-import { authenticated } from '../../middlewares/authenticated';
+// import { authenticated } from '../../middlewares/authenticated';
 import { validate } from '../../middlewares/validation';
 import { loginSchema } from '../../validation/user/auth';
 import { catchAsync } from '../../utils/catchAsync';

@@ -16,7 +16,7 @@ import mongoose from "mongoose";
     },
     amount: { type: Number, required: true },
     date: { type: Date, },
-    status: { type: String, enum: 'pending', 'approve', 'reject'},
+    status: { type: String, enum: ['pending', 'approve', 'reject']},
   },
   { timestamps: true, }
 );

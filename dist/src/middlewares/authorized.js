@@ -1,16 +1,14 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authorizeRoles = void 0;
-const unauthorizedError_1 = require("../Errors/unauthorizedError");
-const authorizeRoles = (...roles) => {
-    return (req, res, next) => {
-        if (!req.user?.role || !roles.includes(req.user.role)) {
-            throw new unauthorizedError_1.UnauthorizedError();
-        }
-        next();
-    };
-};
-exports.authorizeRoles = authorizeRoles;
+// import { NextFunction, Request, Response, RequestHandler } from "express";
+// import { UnauthorizedError } from "../Errors/unauthorizedError";
+// export const authorizeRoles = (...roles: string[]): RequestHandler => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     if (!req.user?.role || !roles.includes(req.user.role)) {
+//       throw new UnauthorizedError();
+//     }
+//     next();
+//   };
+// };
 // import { NextFunction, Request, Response, RequestHandler } from "express";
 // import { UnauthorizedError } from "../Errors/unauthorizedError";
 // import { AppUser } from "../types/custom"; // نوع المستخدم
