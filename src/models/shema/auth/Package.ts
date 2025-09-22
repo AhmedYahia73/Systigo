@@ -2,7 +2,7 @@ import { model, Schema, Types } from "mongoose";
 import mongoose from "mongoose";
  const PackageSchema = new Schema(
   {
-    
+     
     name: { type: String, },
     description: { type: String, },
     monthly_price: { type: Number, required: true },
