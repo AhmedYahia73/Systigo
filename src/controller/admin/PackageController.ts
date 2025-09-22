@@ -36,7 +36,10 @@ export const create = async (req: Request, res: Response) => {
 export const modify = async (req: Request, res: Response) => {
   const id = req.params.id;
   let package_item = await PackageModel.findById(id);
-
+  if(!package_item){
+    throw new UnauthorizedError('Package not found');
+  }
+  
   const {
     name,
     description,
