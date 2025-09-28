@@ -5,10 +5,20 @@ import { SuccessResponse } from "../../utils/response";
 
 
 export const view = async (req: Request, res: Response) => {
-  const packages = PackageModel.find();
+  const packages = await PackageModel.find();
   
   return SuccessResponse(res, { data: packages }, 200);
 };
+
+// get by id 
+export const getById = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const package_item = await PackageModel.findById(id);
+  if (!package_item) {
+    throw new NotFound('Package not found');
+  }
+  return SuccessResponse(res, { data: package_item }, 200);
+}
 
 export const create = async (req: Request, res: Response) => {
     const {
