@@ -9,12 +9,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { connectDB } from "./models/connection";
+import { seedAdminFromEnv } from "./utils/seedAdmin";
 
 
 dotenv.config();
 
 const app = express();
-connectDB();
+connectDB().then(seedAdminFromEnv).catch(() => {});
 
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: "*" }));
