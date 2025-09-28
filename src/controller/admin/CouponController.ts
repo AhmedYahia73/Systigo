@@ -5,10 +5,20 @@ import { SuccessResponse } from "../../utils/response";
 
 
 export const view = async (req: Request, res: Response) => {
-  const coupons = CouponModel.find();
+  const coupons = await CouponModel.find();
   
   return SuccessResponse(res, { data: coupons }, 200);
 };
+
+// get by id 
+export const getCouponById = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const coupon = await CouponModel.findById(id);
+  if (!coupon) {
+    throw new NotFound('Coupon not found');
+  }
+  return SuccessResponse(res, { data: coupon }, 200);
+}
 
 export const create = async (req: Request, res: Response) => {
     const {
@@ -20,7 +30,7 @@ export const create = async (req: Request, res: Response) => {
         status,
     } = req.body;
   
-    const coupons = await CouponModel.findById({code});
+    const coupons = await CouponModel.findOne({ code }).exec();
     if (coupons) {
       throw new UnauthorizedError('Code must be unique');
     }
@@ -35,6 +45,8 @@ export const create = async (req: Request, res: Response) => {
     });
   return SuccessResponse(res, { message: 'Coupon created successfully' }, 201);
 };
+
+
 
 export const modify = async (req: Request, res: Response) => {
   const id = req.params.id;
