@@ -1,6 +1,7 @@
 import { PaymentMethodModel } from '../../models/shema/auth/PaymentMethod';
 import asyncHandler from 'express-async-handler';
 import { NotFound } from '../../Errors/NotFound';
+import { UnauthorizedError } from '../../Errors/unauthorizedError';
 import { SuccessResponse } from '../../utils/response';
 import { saveBase64Image } from '../../utils/handleImages';
 
@@ -25,11 +26,14 @@ export const getPaymentMethodById = asyncHandler(async (req, res) => {
 export const createPaymentMethod = asyncHandler(async (req, res) => {
   const { name, description, status } = req.body;
   const userId = req.user?.id;
+  if (!userId) {
+    throw new UnauthorizedError('User authentication failed');
+  }
 
-    const base64 = req.body.logo;
-    const folder = 'payment-methods';
-    const imageUrl = await saveBase64Image(base64, userId, req, folder);
-  
+  const base64 = req.body.logo;
+  const folder = 'payment-methods';
+  const imageUrl = await saveBase64Image(base64, userId, req, folder);
+
   const paymentMethod = await PaymentMethodModel.create({
     name,
     description,

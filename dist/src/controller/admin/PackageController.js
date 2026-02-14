@@ -1,14 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.delete_item = exports.modify = exports.create = exports.view = void 0;
+exports.delete_item = exports.modify = exports.create = exports.getById = exports.view = void 0;
 const Package_1 = require("../../models/shema/auth/Package");
 const Errors_1 = require("../../Errors");
 const response_1 = require("../../utils/response");
 const view = async (req, res) => {
-    const packages = Package_1.PackageModel.find();
+    const packages = await Package_1.PackageModel.find();
     return (0, response_1.SuccessResponse)(res, { data: packages }, 200);
 };
 exports.view = view;
+// get by id 
+const getById = async (req, res) => {
+    const id = req.params.id;
+    const package_item = await Package_1.PackageModel.findById(id);
+    if (!package_item) {
+        throw new Errors_1.NotFound('Package not found');
+    }
+    return (0, response_1.SuccessResponse)(res, { data: package_item }, 200);
+};
+exports.getById = getById;
 const create = async (req, res) => {
     const { name, description, monthly_price, quarterly_price, half_yearly_price, yearly_price, status, } = req.body;
     const new_package = await Package_1.PackageModel.create({
